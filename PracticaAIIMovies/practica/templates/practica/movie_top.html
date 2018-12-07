@@ -1,0 +1,38 @@
+<head>
+    <meta charset="UTF-8">
+    <title>Movie list</title>
+</head>
+<body>
+{% if top %}
+    <table>
+    <tr>
+        <th>
+            Id
+        </th>
+        <th>
+            Title
+        </th>
+        <th>
+            Score
+        </th>
+
+    </tr>
+    {% for  movie, score in top.items %}
+        <tr>
+            <td>
+                {{ movie.movie_id }}
+            </td>
+            <td>
+                {{ movie.title }}
+            </td>
+            </td>
+            <td>
+                {{ score }}
+            </td>
+        </tr>
+    {% endfor %}
+    </table>
+{% else %}
+    <p>No polls are available.</p>
+{% endif %}
+</body>
