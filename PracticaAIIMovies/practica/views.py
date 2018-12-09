@@ -1,6 +1,8 @@
 from django.db.models import Sum
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from practica.models import *
+from .forms.search_form import search
 from itertools import islice
 # Create your views here.
 
@@ -41,3 +43,19 @@ def best_score_movies(request):
     print(result)
     return render(request, 'practica/movie_top.html', {'top': result})
 
+
+def search_movie(request):
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = search(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            movies = Movie.objects.filter(title__contains=form['title'].value()).all()
+
+            return render(request, 'practica/movie_list.html', {'movies': movies})
+
+        # if a GET (or any other method) we'll create a blank form
+    else:
+        form = search()
+
+    return render(request, 'practica/movie_form.html', {'form': form})
