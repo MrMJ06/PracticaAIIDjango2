@@ -4,7 +4,7 @@ from django.db import models
 # Create your models here.
 class Genre(models.Model):
     genre_id = models.AutoField(primary_key=True)
-    value = models.CharField(max_length=200)
+    value = models.CharField(max_length=200, unique=True)
 
 
 class Movie(models.Model):
