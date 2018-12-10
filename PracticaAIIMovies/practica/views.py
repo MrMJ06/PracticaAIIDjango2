@@ -64,20 +64,22 @@ def artistas_por_discografica(request):
     for discografica in discograficas:
         result[discografica.nombre] = discografica.artista_set.all()
     print(result)
-    return render(request, 'practica/artistas.html', {'artista': result})
+    return render(request, 'practica/artistas.html', {'artistas': result})
+
 
 def artistas_populares(request):
     Artista.objects.filter()
     artistas = Artista.objects.annotate(count_tiempos=Sum('tiempo')).order_by('-count_tiempos')[:2]
 
-    return render(request, 'practica/artistas-populares.html', {'genres': artistas})
+    return render(request, 'practica/artistas-populares.html', {'artistas': artistas})
+
 
 def buscador_artistas_por_usuario(request):
     if request.method == 'POST':
         form = Buscador(request.POST)
         if form.is_valid():
-            Artista.objects.filter(tiempo__usuario__nombre_usuario__icontains=form['usuario'])
-            return HttpResponseRedirect("/practica/index")
+            artistas = Artista.objects.filter(tiempo__usuario__nombre_usuario__icontains=form['usuario'].value())
+            return render(request, 'practica/artistas-populares.html', {'artistas': artistas})
     else:
         form = Buscador()
     return render(request, 'practica/form.html', {'form': form,'action':'/practica/buscador/'})

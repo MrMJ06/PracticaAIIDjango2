@@ -3,9 +3,9 @@
 {% block title %}Lista de artistas (Ordenado por discográficas){% endblock %}
 
 {% block content %}
-    {% if artista %}
+    {% if artistas %}
 
-        {% for key, values in artista.items %}
+        {% for key, values in artistas.items %}
             Discografica: {{ key }}
             <ul>
                 <br/>
@@ -13,7 +13,7 @@
                     <li>{{ artista.nombre }}<br/>
                         {{ artista.pais }}<br/>
 
-                        {% for estilo in artista.estilos %}
+                        {% for estilo in artista.estilos.all %}
                             {{ estilo.value }}<br/>
                         {% endfor %}
 

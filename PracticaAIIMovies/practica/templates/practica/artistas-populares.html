@@ -4,17 +4,19 @@
 
 {% block content %}
     {% if artistas %}
-
+        <ul>
         {% for artista in artistas %}
             <li>{{ artista.nombre }}<br/>
                 {{ artista.pais }}<br/>
-                {% for estilo in artista.estilos %}
+                <ul>
+                {% for estilo in artista.estilos.all %}
                     {{ estilo.value }}<br/>
                 {% endfor %}
+                </ul>
 
             </li>
         {% endfor %}
-
+    </ul>
     {% else %}
 
         <p>No hay artistas guardados.</p>
